@@ -2,12 +2,12 @@
 
 import { useSearchParams, useRouter } from "next/navigation";
 import ExcalidrawCanvas from "@/components/ExcalidrawCanvas";
-import { useMemo } from "react";
+import { useMemo, Suspense } from "react";
 import { generateMockMermaidFromIntent } from "@/lib/mermaid";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
-export default function EditorPage() {
+function EditorContent() {
   const params = useSearchParams();
   const router = useRouter();
   const q = params.get("q") || "";
@@ -42,6 +42,14 @@ export default function EditorPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function EditorPage() {
+  return (
+    <Suspense fallback={<div className="h-screen bg-[#030303] flex items-center justify-center text-white">Loading...</div>}>
+      <EditorContent />
+    </Suspense>
   );
 }
 

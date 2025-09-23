@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, X, Sparkles } from "lucide-react";
+import { ArrowRight, X } from "lucide-react";
 import { generateMockMermaidFromIntent } from "@/lib/mermaid";
 import { cn } from "@/lib/utils";
 import ExcalidrawCanvas from "@/components/ExcalidrawCanvas";
