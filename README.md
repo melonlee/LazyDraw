@@ -13,15 +13,9 @@
 
 ## 📸 项目截图
 
-### 主界面
 ![LazyDraw 主界面](preview/home.png)
 
-*LazyDraw 主界面展示 - 现代化的 AI 图表生成工具，具有优雅的暗色主题和动态渐变背景*
-
-### 加载动画
 ![LazyDraw 加载动画](preview/loading.png)
-
-*LazyDraw 加载动画展示 - 流畅的进度条动画和元素飞出效果*
 
 ## 🛠️ 技术栈
 
