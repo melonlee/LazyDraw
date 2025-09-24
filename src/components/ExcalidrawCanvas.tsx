@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 
 // 动态导入 Excalidraw，避免 SSR 问题
 const Excalidraw = dynamic(async () => {
@@ -40,13 +40,26 @@ export interface ExcalidrawCanvasProps {
   className?: string;
 }
 
-export default function ExcalidrawCanvas({ className }: ExcalidrawCanvasProps) {
-  // 暂时移除 initialData 以避免类型错误，但保留解析功能以备后用
-  // const elements = useMemo(() => parseSimpleMermaidFlowchart(mermaid), [mermaid]);
+export default function ExcalidrawCanvas({ mermaid, className }: ExcalidrawCanvasProps) {
+  const [initialData, setInitialData] = useState<{ elements: ExcalidrawElement[] } | null>(null);
+  
+  // 解析 Mermaid 并生成 Excalidraw 元素
+  const elements = useMemo(() => {
+    if (!mermaid.trim()) return [];
+    return parseSimpleMermaidFlowchart(mermaid);
+  }, [mermaid]);
+
+  useEffect(() => {
+    if (elements.length > 0) {
+      setInitialData({ elements });
+    }
+  }, [elements]);
 
   return (
     <div className={className ?? "w-full h-[70vh] border rounded-xl overflow-hidden bg-white"}>
       <Excalidraw 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        initialData={initialData as any}
         aiEnabled={false}
         theme="light"
         viewModeEnabled={false}
