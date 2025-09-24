@@ -1,149 +1,149 @@
-# LazyDraw - AI 智能图表生成工具
+# LazyDraw - AI-Powered Diagram Generation Tool
 
-一个基于 AI 技术的智能图表生成工具，能够将自然语言描述转换为专业的 Mermaid 图表代码，并提供实时渲染和编辑功能。
+An intelligent diagram generation tool that converts natural language descriptions into professional Mermaid diagram code with real-time rendering and editing capabilities.
 
-## 🌐 在线体验
+## 🌐 Try It Online
 
-**立即体验**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
+**Live Demo**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
 
-输入描述，一键生成专业图表！
+Input your description and generate professional diagrams in seconds!
 
-## 🚀 项目特色
+## 🚀 Key Features
 
-- **智能文本转图表**：使用 AI 将自然语言描述转换为 Mermaid 图表代码
-- **多图表类型支持**：支持流程图、序列图、甘特图等多种图表类型
-- **双渲染模式**：支持 Mermaid 原生渲染和 Excalidraw 手绘风格渲染
-- **现代化界面**：基于 YouMind 设计风格的简洁现代界面
-- **响应式设计**：完美适配桌面端和移动端
-- **流畅动画**：使用 Framer Motion 提供流畅的交互动画
+- **Smart Text-to-Diagram**: AI-powered conversion from natural language to Mermaid diagram code
+- **Multiple Chart Types**: Support for flowcharts, sequence diagrams, Gantt charts, and more
+- **Dual Rendering Modes**: Native Mermaid rendering and Excalidraw hand-drawn style rendering
+- **Modern Interface**: Clean, modern design inspired by YouMind
+- **Responsive Design**: Perfect adaptation for desktop and mobile devices
+- **Smooth Animations**: Fluid interactive animations powered by Framer Motion
 
-## 📸 项目截图
+## 📸 Screenshots
 
-![LazyDraw 主界面](preview/home.png)
+![LazyDraw Main Interface](preview/home.png)
 
-![LazyDraw 加载动画](preview/loading.png)
+![LazyDraw Loading Animation](preview/loading.png)
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-- **前端框架**：Next.js 15 + React 18
-- **UI 组件库**：shadcn/ui + Radix UI
-- **样式系统**：Tailwind CSS v4
-- **动画库**：Framer Motion
-- **图标库**：Lucide React
-- **类型安全**：TypeScript
+- **Frontend Framework**: Next.js 15 + React 18
+- **UI Component Library**: shadcn/ui + Radix UI
+- **Styling System**: Tailwind CSS v4
+- **Animation Library**: Framer Motion
+- **Icon Library**: Lucide React
+- **Type Safety**: TypeScript
 
-## 📦 安装和运行
+## 📦 Installation & Setup
 
-### 环境要求
+### Prerequisites
 
-- Node.js 18.x 或更高版本
-- npm 或 yarn 包管理工具
+- Node.js 18.x or higher
+- npm or yarn package manager
 
-### 安装步骤
+### Installation Steps
 
-1. **克隆项目**
+1. **Clone the repository**
 ```bash
 git clone <repository-url>
 cd LazyDraw
 ```
 
-2. **安装依赖**
+2. **Install dependencies**
 ```bash
 npm install
 ```
 
-3. **启动开发服务器**
+3. **Start development server**
 ```bash
 npm run dev
 ```
 
-4. **访问应用**
-打开浏览器访问 [http://localhost:3000](http://localhost:3000)
+4. **Access the application**
+Open your browser and visit [http://localhost:3000](http://localhost:3000)
 
-## 🎨 界面预览
+## 🎨 Interface Preview
 
-项目实现了现代化的暗色主题界面设计：
+The project features a modern dark theme interface design:
 
-- **主页面**：大标题 "Hi, What would you like to draw?" + 副标题布局
-- **输入框**：居中的文本输入框，支持图表描述输入
-- **动态背景**：紫色和玫瑰色渐变背景，浮动光圈元素
-- **动画效果**：页面加载动画、进度条动画、元素飞出效果
-- **编辑器**：全屏编辑器，支持 Excalidraw 画布编辑
-- **响应式设计**：完美适配桌面端和移动端
+- **Main Page**: Large title "Hi, What would you like to draw?" with subtitle layout
+- **Input Field**: Centered text input for diagram descriptions
+- **Dynamic Background**: Purple and rose gradient background with floating orb elements
+- **Animation Effects**: Page load animations, progress bar animations, element fly-out effects
+- **Editor**: Full-screen editor with Excalidraw canvas editing support
+- **Responsive Design**: Perfect adaptation for desktop and mobile devices
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 LazyDraw/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx         # 根布局
-│   │   ├── page.tsx           # 首页
-│   │   ├── editor/            # 编辑器页面
-│   │   │   └── page.tsx       # 编辑器组件
-│   │   └── globals.css        # 全局样式
-│   ├── components/            # 可复用组件
-│   │   ├── ui/               # 基础 UI 组件
-│   │   │   ├── button.tsx    # 按钮组件
-│   │   │   └── input.tsx     # 输入框组件
-│   │   └── ExcalidrawCanvas.tsx # Excalidraw 画布组件
-│   └── lib/                  # 工具库
-│       ├── utils.ts          # 工具函数
-│       └── mermaid.ts        # Mermaid 生成逻辑
-├── preview/                  # 项目截图
-│   ├── home.png             # 主界面截图
-│   └── loading.png          # 加载动画截图
-├── tec/                     # 技术文档
-│   ├── PRD.md              # 产品需求文档
-│   └── TRD.md              # 技术需求文档
-└── package.json             # 项目配置
+│   │   ├── layout.tsx         # Root layout
+│   │   ├── page.tsx           # Home page
+│   │   ├── editor/            # Editor page
+│   │   │   └── page.tsx       # Editor component
+│   │   └── globals.css        # Global styles
+│   ├── components/            # Reusable components
+│   │   ├── ui/               # Base UI components
+│   │   │   ├── button.tsx    # Button component
+│   │   │   └── input.tsx     # Input component
+│   │   └── ExcalidrawCanvas.tsx # Excalidraw canvas component
+│   └── lib/                  # Utility libraries
+│       ├── utils.ts          # Utility functions
+│       └── mermaid.ts        # Mermaid generation logic
+├── preview/                  # Project screenshots
+│   ├── home.png             # Main interface screenshot
+│   └── loading.png          # Loading animation screenshot
+├── tec/                     # Technical documentation
+│   ├── PRD.md              # Product Requirements Document
+│   └── TRD.md              # Technical Requirements Document
+└── package.json             # Project configuration
 ```
 
-## 🎯 核心功能
+## 🎯 Core Features
 
-### 1. 智能文本转图表
-- 支持自然语言输入描述
-- 智能识别图表类型（系统架构图、用户流程图、数据流图等）
-- 自动生成 Mermaid 图表代码
-- 实时渲染和预览
+### 1. Smart Text-to-Diagram
+- Support for natural language input descriptions
+- Intelligent chart type recognition (system architecture, user flow, data flow, etc.)
+- Automatic Mermaid diagram code generation
+- Real-time rendering and preview
 
-### 2. 多图表类型支持
-- **系统架构图**：API网关、认证服务、数据库等组件
-- **用户流程图**：注册、登录、使用等流程
-- **数据流图**：数据源、清洗、转换、存储等步骤
-- **通用流程图**：自定义业务流程
+### 2. Multiple Chart Type Support
+- **System Architecture**: API gateway, authentication services, databases, etc.
+- **User Flow**: Registration, login, usage processes
+- **Data Flow**: Data sources, cleaning, transformation, storage steps
+- **General Flowcharts**: Custom business processes
 
-### 3. Excalidraw 画布集成
-- **手绘风格渲染**：友好的视觉效果
-- **可编辑画布**：支持拖拽、缩放、编辑
-- **实时同步**：Mermaid 代码自动转换为画布元素
-- **交互式编辑**：直接在画布上修改图表
+### 3. Excalidraw Canvas Integration
+- **Hand-drawn Style Rendering**: Friendly visual effects
+- **Editable Canvas**: Support for drag, zoom, and edit operations
+- **Real-time Sync**: Mermaid code automatically converted to canvas elements
+- **Interactive Editing**: Direct chart modification on canvas
 
-### 4. 流畅动画效果
-- **页面加载动画**：优雅的渐入效果
-- **进度条动画**：生成过程的视觉反馈
-- **元素飞出效果**：从主界面到编辑器的过渡
-- **编辑器飞入**：3D 旋转飞入效果
+### 4. Smooth Animation Effects
+- **Page Load Animation**: Elegant fade-in effects
+- **Progress Bar Animation**: Visual feedback for generation process
+- **Element Fly-out Effect**: Transition from main interface to editor
+- **Editor Fly-in**: 3D rotation fly-in effect
 
-## 🔧 开发指南
+## 🔧 Development Guide
 
-### 添加新功能
+### Adding New Features
 
-1. 在 `src/components/` 目录下创建新组件
-2. 使用 TypeScript 和 Tailwind CSS
-3. 遵循现有的组件结构和命名规范
+1. Create new components in the `src/components/` directory
+2. Use TypeScript and Tailwind CSS
+3. Follow existing component structure and naming conventions
 
-### 样式定制
+### Style Customization
 
-项目使用 Tailwind CSS，可以通过以下方式定制样式：
+The project uses Tailwind CSS. You can customize styles by:
 
-1. 修改 `tailwind.config.ts` 配置文件
-2. 在 `src/app/globals.css` 中添加自定义样式
-3. 使用 CSS 变量进行主题定制
+1. Modifying the `tailwind.config.ts` configuration file
+2. Adding custom styles in `src/app/globals.css`
+3. Using CSS variables for theme customization
 
-### 动画效果
+### Animation Effects
 
-使用 Framer Motion 添加动画效果：
+Add animation effects using Framer Motion:
 
 ```tsx
 import { motion } from "framer-motion";
@@ -157,52 +157,59 @@ import { motion } from "framer-motion";
 </motion.div>
 ```
 
-## 📱 响应式设计
+## 📱 Responsive Design
 
-项目采用移动优先的响应式设计：
+The project adopts a mobile-first responsive design:
 
-- **移动端**：单列布局，紧凑的间距
-- **平板端**：适中的尺寸和间距
-- **桌面端**：双列布局，充分利用屏幕空间
+- **Mobile**: Single-column layout with compact spacing
+- **Tablet**: Moderate size and spacing
+- **Desktop**: Dual-column layout, making full use of screen space
 
-## 🚀 部署
+## 🚀 Deployment
 
-### 在线体验
+### Online Experience
 
-**生产环境**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
+**Production Environment**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
 
-### Vercel 部署
+### Vercel Deployment
 
-1. 将代码推送到 GitHub
-2. 在 Vercel 中导入项目
-3. 自动部署完成
+1. Push code to GitHub
+2. Import project in Vercel
+3. Automatic deployment completed
 
-### Docker 部署
+### Docker Deployment
 
 ```bash
-# 构建镜像
+# Build image
 docker build -t lazydraw .
 
-# 运行容器
+# Run container
 docker run -p 3000:3000 lazydraw
 ```
 
-## 🤝 贡献指南
+## 🤝 Contributing
 
-1. Fork 项目
-2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 打开 Pull Request
+1. Fork the project
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📄 许可证
+## 📄 License
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 致谢
+## 🙏 Acknowledgments
 
-- [YouMind](https://youmind.com/) - 界面设计灵感来源
-- [Smart Mermaid](https://github.com/liujuntao123/smart-mermaid) - 功能设计参考
-- [Next.js](https://nextjs.org/) - 前端框架
-- [Tailwind CSS](https://tailwindcss.com/) - 样式框架
-- [Framer Motion](https://www.framer.com/motion/) - 动画库
+- [YouMind](https://youmind.com/) - Interface design inspiration
+- [Smart Mermaid](https://github.com/liujuntao123/smart-mermaid) - Feature design reference
+- [Next.js](https://nextjs.org/) - Frontend framework
+- [Tailwind CSS](https://tailwindcss.com/) - Styling framework
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+
+---
+
+## 🌏 Language
+
+- **English** (Current)
+- [中文版本](README.zh.md)
