@@ -2,6 +2,12 @@
 
 一个基于 AI 技术的智能图表生成工具，能够将自然语言描述转换为专业的 Mermaid 图表代码，并提供实时渲染和编辑功能。
 
+## 🌐 在线体验
+
+**立即体验**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
+
+输入描述，一键生成专业图表！
+
 ## 🚀 项目特色
 
 - **智能文本转图表**：使用 AI 将自然语言描述转换为 Mermaid 图表代码
@@ -160,6 +166,10 @@ import { motion } from "framer-motion";
 - **桌面端**：双列布局，充分利用屏幕空间
 
 ## 🚀 部署
+
+### 在线体验
+
+**生产环境**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
 
 ### Vercel 部署
 
