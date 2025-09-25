@@ -1,6 +1,17 @@
+[English](README.md) | 中文
+
 # LazyDraw - AI 智能图表生成工具
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-38B2AC)](https://tailwindcss.com/)
+
 一个基于 AI 技术的智能图表生成工具，能够将自然语言描述转换为专业的 Mermaid 图表代码，并提供实时渲染和编辑功能。
+
+### 🎯 一个先进的 Web 应用程序，让开发者能够快速从自然语言描述创建专业图表。
+
+### 🌐 访问我们的在线演示：[LazyDraw](https://lazy-draw.vercel.app/)
 
 ## 🌐 在线体验
 
@@ -207,9 +218,3 @@ docker run -p 3000:3000 lazydraw
 - [Tailwind CSS](https://tailwindcss.com/) - 样式框架
 - [Framer Motion](https://www.framer.com/motion/) - 动画库
 
----
-
-## 🌏 语言
-
-- [English Version](README.md)
-- **中文版本** (当前)

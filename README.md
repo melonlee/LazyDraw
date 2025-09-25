@@ -1,6 +1,17 @@
+English | [中文](README.zh.md)
+
 # LazyDraw - AI-Powered Diagram Generation Tool
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-4-38B2AC)](https://tailwindcss.com/)
+
 An intelligent diagram generation tool that converts natural language descriptions into professional Mermaid diagram code with real-time rendering and editing capabilities.
+
+### 🎯 An advanced web application that empowers developers to quickly create professional diagrams from natural language descriptions.
+
+### 🌐 Visit our live demo: [LazyDraw](https://lazy-draw.vercel.app/)
 
 ## 🌐 Try It Online
 
@@ -206,10 +217,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Next.js](https://nextjs.org/) - Frontend framework
 - [Tailwind CSS](https://tailwindcss.com/) - Styling framework
 - [Framer Motion](https://www.framer.com/motion/) - Animation library
-
----
-
-## 🌏 Language
-
-- **English** (Current)
-- [中文版本](README.zh.md)
