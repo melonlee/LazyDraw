@@ -13,10 +13,6 @@ An intelligent diagram generation tool that converts natural language descriptio
 
 ### 🌐 Visit our live demo: [LazyDraw](https://lazy-draw.vercel.app/)
 
-## 🌐 Try It Online
-
-**Live Demo**: [https://lazy-draw.vercel.app/](https://lazy-draw.vercel.app/)
-
 Input your description and generate professional diagrams in seconds!
 
 ## 🚀 Key Features
