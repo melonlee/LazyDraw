@@ -53,23 +53,22 @@ export default function Home() {
       clearInterval(progressInterval);
       setProgress(99);
       
-      setTimeout(() => {
-        setProgress(100);
-        
         setTimeout(() => {
-          // 触发元素飞出效果
-          setElementsFlyOut(true);
+          setProgress(100);
           
-          // 等待飞出动画完成后显示编辑器
           setTimeout(() => {
-            const mmd = generateMockMermaidFromIntent(inputValue);
-            setMermaid(mmd);
-            setIsGenerating(false);
-            setProgress(0);
-            setShowEditor(true);
-          }, 600); // 等待飞出动画完成
-        }, 500);
-      }, 1000);
+            // 触发元素飞出效果
+            setElementsFlyOut(true);
+            
+            // 等待飞出动画完成后跳转到chat页面
+            setTimeout(() => {
+              // 将用户输入传递给chat页面
+              const params = new URLSearchParams();
+              params.set('input', inputValue);
+              window.location.href = `/chat?${params.toString()}`;
+            }, 600); // 等待飞出动画完成
+          }, 500);
+        }, 1000);
     }, 3000); // 3秒的生成时间
   };
 
@@ -81,8 +80,8 @@ export default function Home() {
 
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#030303]">
-      <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/[0.05] via-transparent to-rose-500/[0.05] blur-3xl" />
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-white">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-purple-50/30 blur-3xl" />
       
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -96,7 +95,7 @@ export default function Home() {
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
             className="w-[600px] h-[140px] relative"
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-indigo-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-200/40 to-transparent backdrop-blur-[2px] border-2 border-blue-100/30 shadow-[0_8px_32px_0_rgba(59,130,246,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_70%)]" />
           </motion.div>
         </motion.div>
 
@@ -111,9 +110,18 @@ export default function Home() {
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
             className="w-[500px] h-[120px] relative"
           >
-            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-rose-500/[0.15] to-transparent backdrop-blur-[2px] border-2 border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-200/40 to-transparent backdrop-blur-[2px] border-2 border-purple-100/30 shadow-[0_8px_32px_0_rgba(147,51,234,0.1)] after:absolute after:inset-0 after:rounded-full after:bg-[radial-gradient(circle_at_50%_50%,rgba(147,51,234,0.1),transparent_70%)]" />
           </motion.div>
         </motion.div>
+      </div>
+
+      {/* 网站名称 */}
+      <div className="absolute top-6 left-6 z-20">
+        <h1 className="text-2xl sm:text-3xl font-bold">
+          <span className={cn("bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600", "font-pacifico")}>
+            LazyDraw
+          </span>
+        </h1>
       </div>
 
       <div className="relative z-10 container mx-auto px-4 md:px-6">
@@ -133,9 +141,9 @@ export default function Home() {
             }}
           >
             <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80">Hi, What would you like to</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-b from-gray-900 to-gray-700">Hi, What would you like to</span>
               <br />
-              <span className={cn("bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300", "font-pacifico")}>
+              <span className={cn("bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600", "font-pacifico")}>
                 draw?
               </span>
             </h1>
@@ -154,7 +162,7 @@ export default function Home() {
               ease: elementsFlyOut ? "easeIn" : "easeOut" 
             }}
           >
-            <p className="text-base sm:text-lg md:text-xl text-white/40 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-8 leading-relaxed font-light tracking-wide max-w-xl mx-auto px-4">
               One Word. Perfect Diagram. Powered by LazyDraw.
             </p>
           </motion.div>
@@ -186,13 +194,13 @@ export default function Home() {
                     placeholder="Describe what you want to draw..."
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className="w-full h-12 sm:h-14 text-base sm:text-lg pl-4 sm:pl-6 pr-14 sm:pr-16 rounded-xl sm:rounded-2xl border-2 border-white/[0.15] focus:border-indigo-400/50 focus:ring-0 bg-white/[0.03] backdrop-blur-sm text-white placeholder:text-white/40 shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]"
+                    className="w-full h-12 sm:h-14 text-base sm:text-lg pl-4 sm:pl-6 pr-14 sm:pr-16 rounded-xl sm:rounded-2xl border-2 border-gray-200 focus:border-blue-400 focus:ring-0 bg-white/80 backdrop-blur-sm text-gray-900 placeholder:text-gray-500 shadow-[0_8px_32px_0_rgba(0,0,0,0.05)]"
                   />
                   <Button
                     type="submit"
                     size="icon"
                     disabled={!inputValue.trim()}
-                    className="absolute right-1 sm:right-2 top-1 sm:top-2 h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 shadow-lg transition-all duration-200 disabled:opacity-50"
+                    className="absolute right-1 sm:right-2 top-1 sm:top-2 h-8 w-8 sm:h-10 sm:w-10 rounded-lg sm:rounded-xl bg-gradient-to-r from-blue-400 to-purple-400 hover:from-blue-500 hover:to-purple-500 shadow-lg transition-all duration-200 disabled:opacity-50"
                   >
                     <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                   </Button>
@@ -213,13 +221,13 @@ export default function Home() {
                 }}
                 className="w-full"
               >
-                <div className="relative h-8 bg-black/50 border border-gray-600 rounded overflow-hidden">
+                <div className="relative h-8 bg-gray-100 border border-gray-200 rounded overflow-hidden">
                   <div 
                     className="absolute inset-0 opacity-20"
                     style={{
                       backgroundImage: `
-                        linear-gradient(90deg, transparent 0%, transparent 49%, #333 49%, #333 51%, transparent 51%),
-                        linear-gradient(0deg, transparent 0%, transparent 49%, #333 49%, #333 51%, transparent 51%)
+                        linear-gradient(90deg, transparent 0%, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%),
+                        linear-gradient(0deg, transparent 0%, transparent 49%, #e5e7eb 49%, #e5e7eb 51%, transparent 51%)
                       `,
                       backgroundSize: "8px 8px",
                     }}
@@ -232,17 +240,17 @@ export default function Home() {
                       backgroundImage: `
                         repeating-linear-gradient(
                           90deg,
-                          #735B00 0px,
-                          #735B00 6px,
-                          #8B6914 6px,
-                          #8B6914 8px
+                          #6b7280 0px,
+                          #6b7280 6px,
+                          #ffffff 6px,
+                          #ffffff 8px
                         ),
                         repeating-linear-gradient(
                           0deg,
-                          #735B00 0px,
-                          #735B00 6px,
-                          #8B6914 6px,
-                          #8B6914 8px
+                          #6b7280 0px,
+                          #6b7280 6px,
+                          #ffffff 6px,
+                          #ffffff 8px
                         )
                       `,
                       backgroundSize: "8px 8px",
@@ -250,12 +258,12 @@ export default function Home() {
                   />
                   
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-sm font-mono text-white/80">{Math.round(progress)}%</span>
+                    <span className="text-sm font-mono text-gray-700">{Math.round(progress)}%</span>
                   </div>
                 </div>
                 
                 <div className="mt-4 text-center">
-                  <p className="text-sm font-medium text-white animate-pulse">
+                  <p className="text-sm font-medium text-gray-600 animate-pulse">
                     Generating...
                   </p>
                 </div>
@@ -265,7 +273,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/80 pointer-events-none" />
 
       {/* 编辑器容器 - 从屏幕深处飞入效果 */}
       <motion.div
