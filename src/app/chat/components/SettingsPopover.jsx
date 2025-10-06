@@ -3,7 +3,7 @@ import { useState } from "react"
 import { User, Globe, HelpCircle, Crown, BookOpen, LogOut, ChevronRight } from "lucide-react"
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
 
-export default function SettingsPopover({ children }) {
+export default function SettingsPopover({ children, systemPrompt, setSystemPrompt, temperature, setTemperature }) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -11,9 +11,9 @@ export default function SettingsPopover({ children }) {
       <PopoverTrigger asChild>
         <div>{children}</div>
       </PopoverTrigger>
-      <PopoverContent className="w-72 p-0" align="start" side="top">
+      <PopoverContent className="w-80 p-0" align="start" side="top">
         <div className="p-4">
-          <div className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">j@gmail.com</div>
+          <div className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">Assistant Settings</div>
 
           <div className="flex items-center gap-3 p-3 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 mb-4">
             <div className="flex items-center gap-2">
@@ -34,35 +34,32 @@ export default function SettingsPopover({ children }) {
             </div>
           </div>
 
-          <div className="space-y-1">
-            <div className="text-sm font-medium text-zinc-900 dark:text-zinc-100 mb-2">Settings</div>
-
-            <button className="flex items-center gap-3 w-full p-2 text-sm text-left hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
-              <Globe className="h-4 w-4" />
-              <span>Language</span>
-              <ChevronRight className="h-4 w-4 ml-auto" />
-            </button>
-
-            <button className="flex items-center gap-3 w-full p-2 text-sm text-left hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
-              <HelpCircle className="h-4 w-4" />
-              <span>Get help</span>
-            </button>
-
-            <button className="flex items-center gap-3 w-full p-2 text-sm text-left hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
-              <Crown className="h-4 w-4" />
-              <span>Upgrade plan</span>
-            </button>
-
-            <button className="flex items-center gap-3 w-full p-2 text-sm text-left hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
-              <BookOpen className="h-4 w-4" />
-              <span>Learn more</span>
-              <ChevronRight className="h-4 w-4 ml-auto" />
-            </button>
-
-            <button className="flex items-center gap-3 w-full p-2 text-sm text-left hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg">
-              <LogOut className="h-4 w-4" />
-              <span>Log out</span>
-            </button>
+          <div className="space-y-3">
+            <div>
+              <div className="text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">System Prompt</div>
+              <textarea
+                value={systemPrompt || ""}
+                onChange={(e) => setSystemPrompt?.(e.target.value)}
+                rows={3}
+                placeholder="可选：给助手一个系统角色/指令"
+                className="w-full resize-y rounded-lg border border-zinc-300 bg-transparent p-2 text-sm outline-none dark:border-zinc-700"
+              />
+            </div>
+            <div>
+              <div className="flex items-center justify-between text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <span>Temperature</span>
+                <span className="tabular-nums">{typeof temperature === 'number' ? temperature.toFixed(2) : '0.70'}</span>
+              </div>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={typeof temperature === 'number' ? temperature : 0.7}
+                onChange={(e) => setTemperature?.(parseFloat(e.target.value))}
+                className="w-full"
+              />
+            </div>
           </div>
         </div>
       </PopoverContent>

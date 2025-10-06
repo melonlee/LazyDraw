@@ -28,7 +28,7 @@ function ThinkingMessage({ onPause }) {
 }
 
 const ChatPane = forwardRef(function ChatPane(
-  { conversation, onSend, onEditMessage, onResendMessage, isThinking, onPauseThinking },
+  { conversation, onSend, onEditMessage, onResendMessage, isThinking, onPauseThinking, errorMessage, onRetry },
   ref,
 ) {
   const [editingId, setEditingId] = useState(null)
@@ -75,6 +75,19 @@ const ChatPane = forwardRef(function ChatPane(
   return (
     <div className="flex h-full min-h-0 flex-1 flex-col">
       <div className="flex-1 space-y-5 overflow-y-auto px-4 py-6 sm:px-8">
+        {!!errorMessage && (
+          <div className="rounded-xl border border-red-300 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950/40 dark:text-red-300">
+            <div className="flex items-center justify-between gap-2">
+              <div className="truncate">{errorMessage}</div>
+              <button
+                onClick={onRetry}
+                className="shrink-0 rounded-full border border-red-400 px-2 py-0.5 text-xs hover:bg-red-100 dark:border-red-700 dark:hover:bg-red-900/40"
+              >
+                Retry
+              </button>
+            </div>
+          </div>
+        )}
 
         {messages.length === 0 ? (
           <div className="rounded-xl border border-dashed border-zinc-300 p-6 text-sm text-zinc-500 dark:border-zinc-700 dark:text-zinc-400">

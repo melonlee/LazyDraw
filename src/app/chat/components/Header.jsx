@@ -2,8 +2,9 @@
 import { Asterisk, MoreHorizontal, Menu, ChevronDown } from "lucide-react"
 import { useState } from "react"
 import GhostIconButton from "./GhostIconButton"
+import SettingsPopover from "./SettingsPopover"
 
-export default function Header({ createNewChat, sidebarCollapsed, setSidebarOpen }) {
+export default function Header({ createNewChat, sidebarCollapsed, setSidebarOpen, systemPrompt, setSystemPrompt, temperature, setTemperature }) {
   const [selectedBot, setSelectedBot] = useState("GPT-5")
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
@@ -60,9 +61,16 @@ export default function Header({ createNewChat, sidebarCollapsed, setSidebarOpen
       </div>
 
       <div className="ml-auto flex items-center gap-2">
-        <GhostIconButton label="More">
-          <MoreHorizontal className="h-4 w-4" />
-        </GhostIconButton>
+        <SettingsPopover
+          systemPrompt={systemPrompt}
+          setSystemPrompt={setSystemPrompt}
+          temperature={temperature}
+          setTemperature={setTemperature}
+        >
+          <GhostIconButton label="More">
+            <MoreHorizontal className="h-4 w-4" />
+          </GhostIconButton>
+        </SettingsPopover>
       </div>
     </div>
   )

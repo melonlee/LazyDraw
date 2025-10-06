@@ -82,7 +82,10 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
   const searchRef = useRef<HTMLInputElement | null>(null)
 
   const [isThinking, setIsThinking] = useState(false)
+  const [systemPrompt, setSystemPrompt] = useState("")
+  const [temperature, setTemperature] = useState(0.7)
   const [thinkingConvId, setThinkingConvId] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -213,7 +216,7 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
     setFolders((prev) => [...prev, { id: Math.random().toString(36).slice(2), name }])
   }
 
-  function sendMessage(convId: string, content: string) {
+  async function sendMessage(convId: string, content: string) {
     if (!content.trim()) return
     const now = new Date().toISOString()
     const userMsg = { id: Math.random().toString(36).slice(2), role: "user", content, createdAt: now }
@@ -236,17 +239,86 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
     setThinkingConvId(convId)
 
     const currentConvId = convId
-    setTimeout(() => {
-      setIsThinking(false)
-      setThinkingConvId(null)
+    try {
+      const currentConv = (conversations as any[]).find((c: any) => c.id === currentConvId)
+      const history = Array.isArray(currentConv?.messages) ? currentConv.messages : []
+      const payloadMessages = [
+        ...(systemPrompt?.trim() ? [{ role: "system", content: systemPrompt.trim() }] : []),
+        ...history,
+        userMsg,
+      ]
+        .filter((m: any) => m && typeof m.content === "string" && m.content.trim())
+        .map((m: any) => ({ role: m.role, content: m.content }))
+
+      const resp = await fetch("/api/chat?stream=1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: payloadMessages, temperature }),
+      })
+      if (!resp.ok || !resp.body) {
+        const errText = await resp.text().catch(() => "")
+        throw new Error(errText || "Stream failed")
+      }
+
+      // Append an empty assistant message first, then stream into it
+      const seedId = Math.random().toString(36).slice(2)
       setConversations((prev) =>
         prev.map((c: any) => {
           if (c.id !== currentConvId) return c
-          const ack = `Got it — I'll help with that.`
+          const asstMsg = { id: seedId, role: "assistant", content: "", createdAt: new Date().toISOString() }
+          const msgs = [...(c.messages || []), asstMsg]
+          return {
+            ...c,
+            messages: msgs,
+            updatedAt: new Date().toISOString(),
+            messageCount: msgs.length,
+            preview: "",
+          }
+        }),
+      )
+
+      const reader = resp.body.getReader()
+      const decoder = new TextDecoder()
+      let accumulated = ""
+      while (true) {
+        const { done, value } = await reader.read()
+        if (done) break
+        const chunk = decoder.decode(value, { stream: true })
+        accumulated += chunk
+        const contentDelta = chunk
+        if (contentDelta) {
+          const delta = contentDelta
+          setConversations((prev) =>
+            prev.map((c: any) => {
+              if (c.id !== currentConvId) return c
+              const msgs = (c.messages || []).map((m: any) =>
+                m.id === seedId ? { ...m, content: (m.content || "") + delta } : m,
+              )
+              return {
+                ...c,
+                messages: msgs,
+                preview: (msgs[msgs.length - 1]?.content || "").slice(0, 80),
+                updatedAt: new Date().toISOString(),
+              }
+            }),
+          )
+        }
+      }
+
+      setIsThinking(false)
+      setThinkingConvId(null)
+      setErrorMessage(null)
+    } catch (e: any) {
+      setIsThinking(false)
+      setThinkingConvId(null)
+      setErrorMessage(String(e?.message || e) || "Unknown error")
+      setConversations((prev) =>
+        prev.map((c: any) => {
+          if (c.id !== currentConvId) return c
           const asstMsg = {
             id: Math.random().toString(36).slice(2),
             role: "assistant",
-            content: ack,
+            content: `Error: ${String(e?.message || e)}`,
             createdAt: new Date().toISOString(),
           }
           const msgs = [...(c.messages || []), asstMsg]
@@ -259,7 +331,18 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
           }
         }),
       )
-    }, 2000)
+    }
+  }
+
+  function retryLast(convId: string) {
+    const conv = (conversations as any[]).find((c: any) => c.id === convId)
+    if (!conv) return
+    const msgs = Array.isArray(conv.messages) ? conv.messages : []
+    const lastUser = [...msgs].reverse().find((m: any) => m.role === "user")
+    if (lastUser?.content) {
+      setErrorMessage(null)
+      sendMessage(convId, lastUser.content)
+    }
   }
 
   function editMessage(convId: string, messageId: string, newContent: string) {
@@ -296,6 +379,7 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
   }
 
   const composerRef = useRef<any>(null)
+  const ChatPaneAny = ChatPane as any
 
   const selected = (conversations as any[]).find((c: any) => c.id === selectedId) || null
 
@@ -354,8 +438,16 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
         />
 
         <main className="relative flex min-w-0 flex-1 flex-col">
-          <Header createNewChat={createNewChat} sidebarCollapsed={sidebarCollapsed} setSidebarOpen={setSidebarOpen} />
-          <ChatPane
+          <Header
+            createNewChat={createNewChat}
+            sidebarCollapsed={sidebarCollapsed}
+            setSidebarOpen={setSidebarOpen}
+            systemPrompt={systemPrompt}
+            setSystemPrompt={setSystemPrompt}
+            temperature={temperature}
+            setTemperature={setTemperature}
+          />
+          <ChatPaneAny
             ref={composerRef}
             conversation={selected as any}
             onSend={(content: string) => selectedId && sendMessage(selectedId, content)}
@@ -363,6 +455,8 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
             onResendMessage={(messageId: string) => selectedId && resendMessage(selectedId, messageId)}
             isThinking={isThinking && thinkingConvId === (selected as any)?.id}
             onPauseThinking={pauseThinking}
+            errorMessage={errorMessage}
+            onRetry={() => selectedId && retryLast(selectedId)}
           />
         </main>
       </div>
