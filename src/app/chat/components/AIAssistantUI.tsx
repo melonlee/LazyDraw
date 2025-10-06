@@ -334,7 +334,7 @@ export default function AIAssistantUI({ initialInput = "" }: AIAssistantUIProps)
           collapsed={collapsed}
           setCollapsed={setCollapsed}
           sidebarCollapsed={sidebarCollapsed}
-          setSidebarCollapsed={setSidebarCollapsed}
+          setSidebarCollapsed={setSidebarCollapsed as unknown as (value: boolean) => void}
           conversations={conversations}
           pinned={pinned}
           recent={recent}

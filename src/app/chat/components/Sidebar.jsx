@@ -44,11 +44,11 @@ export default function Sidebar({
   searchRef,
   createFolder,
   createNewChat,
-  templates = [],
-  setTemplates = () => {},
-  onUseTemplate = () => {},
+  templates = /** @type {any[]} */ ([]),
+  setTemplates = /** @type {(v: any) => void} */ (() => {}),
+  onUseTemplate = /** @type {(t: any) => void} */ (() => {}),
   sidebarCollapsed = false,
-  setSidebarCollapsed = () => {},
+  setSidebarCollapsed = (_value) => {},
 }) {
   const [showCreateFolderModal, setShowCreateFolderModal] = useState(false)
   const [showCreateTemplateModal, setShowCreateTemplateModal] = useState(false)
